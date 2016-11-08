@@ -1,10 +1,10 @@
-﻿$path ="" # indtast sti eller gør dynamisk
+﻿$path ="" # type path or make dynamic
 
 $pathIn = $path + "\data.csv"
 $table = (Get-Content $pathIn) -join "`n"  
 
 $hierarchy = ""
-$parentID = "NULL" # NB "NULL" kan være "" (blank), hvis det kommer direkte fra SQL
+$parentID = "NULL" # NB "NULL" may be "" (blank), if it is directly output from SQL
 
 function insideLoop([string]$parentID)
 {
