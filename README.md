@@ -2,7 +2,7 @@
 This project aims to turn plain flat file organizational data into an easy and accessible overview of a complex organization. The project consists of these files and makes heavy use of <a href="https://d3js.org/">D3.js</a>.
 
 ### data.csv
-Contains raw data about the organization in tabular form. Each department is linked to its parent department by the 'Parent &nbsp;Org &nbsp;ID' and 'Org &nbsp;ID' values. 
+Contains raw data about the organization in tabular form. Each department is linked to its parent department by the 'Parent Org ID' and 'Org ID' values. 
 
 ### generator.ps1
 Reads the data in 'data.csv' and turns it into a hierarchy in a format that is compatible with D3.js. The resulting hierarchy is stored in 'hierarchy.js'. 
