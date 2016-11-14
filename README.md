@@ -1,5 +1,5 @@
 # orgchart
-This project aims to turn plain flat file organizational data into an easy and accessible overview of a complex organization. The project make heavy use of <a href="https://d3js.org/">D3.js</a>.
+This project aims to turn plain flat file organizational data into an easy and accessible overview of a complex organization. The project consists of these files and makes heavy use of <a href="https://d3js.org/">D3.js</a>.
 
 ### data.csv
 Contains raw data about the organization in tabular form. Each department is linked to its parent department by the 'Parent Org ID' and 'Org ID' values. 
