@@ -1,4 +1,4 @@
-# orgchart
+# Interactive organizational chart
 This project aims to turn plain flat file organizational data into an easy and accessible overview of a complex organization. The project consists of these files and makes heavy use of <a href="https://d3js.org/">D3.js</a>.
 
 ### data.csv
