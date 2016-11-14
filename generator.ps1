@@ -10,7 +10,7 @@ function insideLoop([string]$parentID)
 {
     foreach ($row in $table.split("`n")) 
     {
-        $cells = $row.Split(";")
+        $cells = $row.Split(",")
         if ($cells[2] -eq $parentID)
         {
             $hierarchy = $hierarchy + "{ ""departmentname"": """ + $cells[0] + """, ""manager"": """ + $cells[1] + """, ""children"": ["
