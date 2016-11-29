@@ -117,7 +117,7 @@ function update(source) {
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
       .attr("dy", "-.10em") // ".35em"
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
-      .text(function(d) { return d.departmentname + ", " + d.manager;})
+      .text(function(d) { return d.type=="dep" ? d.departmentname + ", " + d.manager : d.type=="emp" ? d.initials + ", " + d.name : "Error, unknown information";})
       .style("fill-opacity", 1e-6)
 	  .on("contextmenu",function(d,i) {d3.event.preventDefault();return window.location.assign(d.URL, '_blank');});
 
