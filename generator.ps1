@@ -4,7 +4,7 @@ $dataDep = (Get-Content ($path + "\data_departments.csv")) -join "`n"
 $dataEmp = (Get-Content ($path + "\data_employees.csv")) -join "`n"  
 
 $hierarchy = ""
-$parentID = "NULL" # NB "NULL" may be "" (blank), if it is directly output from SQL
+$parentID = "TOP_LEVEL" 
 
 function insideLoop([string]$parentID)
 {
