@@ -57,12 +57,6 @@ ul.select2-results {
 
 <body>
 
- <!--   <div id="body">
-      <div id="footer">
-        d3.layout.tree
-          <div class="hint">click or option-click to expand or collapse</div>
-      </div>
-    </div>	-->
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="hierarchy.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -94,11 +88,9 @@ function searchTree(d) {
             var parent = d;
             while (typeof(parent) !== "undefined") {
                 ancestors.push(parent);
-		//console.log(parent);
                 parent.class = "found";
                 parent = parent.parent;
             }
-	    //console.log(ancestors);
     }
 }
 
@@ -138,7 +130,7 @@ function expandAll(d) {
         d.children.forEach(expandAll);
 }
 
-// Toggle children.
+// Toggle children
 function toggle(d) {
   if (d.children) {
     d._children = d.children;
@@ -164,8 +156,6 @@ $("#searchName").on("select2-selecting", function(e) {
     update(root);
 })
 
-///////////
-
 var m = [20, 120, 20, 120],
     w = 2000 - m[1] - m[3],
     h = 2000 - m[0] - m[2],
@@ -186,7 +176,6 @@ var vis = d3.select("body").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
- ////
   root.x0 = h / 2;
   root.y0 = 0;
 
@@ -236,7 +225,6 @@ var vis = d3.select("body").append("svg:svg")
 
   root.children.forEach(collapse);
   update(root);
-/////
  
 d3.select(self.frameElement).style("height", "800px");
   
