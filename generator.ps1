@@ -1,4 +1,4 @@
-$path ="C:\Users\jkdh\Desktop\orgchart-master" # type path or make dynamic
+$path ="" # type path or make dynamic
 
 $dataDep = (Get-Content ($path + "\data_departments.csv")) -join "`n"  
 $dataEmp = (Get-Content ($path + "\data_employees.csv")) -join "`n"  
