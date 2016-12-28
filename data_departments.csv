@@ -20,4 +20,4 @@ Department 6;Manager;15;50;50
 Department 7;Manager;15;51;51
 Department 8;Manager;15;52;52
 Team 1;Team leader;32;40;40
-Company;CEO;NULL;1;1
+Company;CEO;TOP_LEVEL;1;1
