@@ -212,6 +212,7 @@ var vis = d3.select("body").append("svg:svg")
         });
   $("#searchName").select2({
         data: select2DataObject,
+	minimumInputLength: 2,
         containerCssClass: "search"
   });
 
