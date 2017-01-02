@@ -198,7 +198,9 @@ var vis = d3.select("#block_container").append("svg:svg")
         });
   $("#searchName").select2({
         data: select2DataObject,
-		minimumInputLength: 2,
+	minimumInputLength: 2,
+	placeholder: "Find employee or department",
+	allowClear: true,
         containerCssClass: "search"
   });
 
