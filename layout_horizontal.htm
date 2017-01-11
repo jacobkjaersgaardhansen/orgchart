@@ -224,12 +224,23 @@ d3.select(self.frameElement).style("height", "800px");
       toggle(d);
     }
   }
+  
+ function collapseExpandAll(d) {
+	if (d.children) {
+		collapse(d);
+		update(d);
+	} else {
+		expandAll(d);
+		update(d);
+	}
+}
+	  
 
   // Initialize the display to show a few nodes.
   root.children.forEach(toggleAll);
 
   update(root);
-    
+   
 function update(source) {
   var duration = d3.event && d3.event.altKey ? 5000 : 500;
 
@@ -277,7 +288,7 @@ function update(source) {
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.type=="dep" ? d.name + ", " + d.initials : d.type=="emp" ? d.initials + ", " + d.name : "Error, unknown information";})
       .style("fill-opacity", 1e-6)
-	  .on("contextmenu",function(d,i) {d3.event.preventDefault();return window.location.assign(d.URL, '_blank');});
+	  .on("contextmenu",function(d,i) {d3.event.preventDefault(); collapseExpandAll(d); });
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
