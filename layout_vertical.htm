@@ -274,7 +274,8 @@ function update(source) {
   var nodeEnter = node.enter().append("svg:g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + source.x0 + "," + source.y0 + ")"; })
-      .on("click", function(d) { toggle(d); update(d); });
+      .on("click", function(d) { toggle(d); })
+      .on("contextmenu",function(d,i) {d3.event.preventDefault(); collapseExpandAll(d); });
 
   nodeEnter.append("svg:circle")
       .attr("r", 1e-6)
@@ -287,8 +288,7 @@ function update(source) {
       .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
       .text(function(d) { return d.type=="dep" ? d.name + ", " + d.initials : d.type=="emp" ? d.initials + ", " + d.name : "Error, unknown information";})
       .style("fill-opacity", 1e-6)
-	  .attr("transform","rotate(45)")
-	  .on("contextmenu",function(d,i) {d3.event.preventDefault(); collapseExpandAll(d); });
+      .attr("transform","rotate(45)");
 
   // Transition nodes to their new position.
   var nodeUpdate = node.transition()
