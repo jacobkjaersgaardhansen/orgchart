@@ -129,7 +129,20 @@ function update(source) {
   nodeEnter.append("svg:circle")
       .attr("r", 1e-6)
 	  .style("fill", function(d) { return d._children ? d.status=="1" ? colorsFill[0] : d.status=="0" ? colorsFill[1] : colorsFill[2] : "#fff"; })
-	  .style("stroke", function(d) { return d.status=="1" ? colorsStroke[0] : d.status=="0" ? colorsStroke[1] : colorsStroke[2]; }); 
+	  .style("stroke", function(d) { return d.status=="1" ? colorsStroke[0] : d.status=="0" ? colorsStroke[1] : colorsStroke[2]; })
+	  .on("mouseover", function(d) {
+		div.transition()		
+           	   .duration(300)		
+           	   .style("opacity", 1);		
+        	div.html("<img src=" + picturesPath + d.initials + picturesExtension + " width=72 />")
+		   .style("left", (d3.event.pageX) + "px")		
+             	   .style("top", (d3.event.pageY-72) + "px");	
+		})
+	  .on("mouseout", function (d) {
+		div.transition()		
+             	   .duration(1000)		
+           	   .style("opacity", 0);
+		});
 
   nodeEnter.append("svg:text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
