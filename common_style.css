@@ -1,0 +1,58 @@
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+	  font: 12px sans-serif;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+.found {
+  fill: pink;
+  stroke: orangered;
+}
+
+.search {
+  float: left;
+  font: 12px sans-serif;
+  width: 300px;
+}
+
+ul.select2-results {
+ max-height: 200px;
+}
+
+.select2-container,
+.select2-drop,
+.select2-search,
+.select2-search input {
+  font: 12px sans-serif;
+}
+
+#block_container {
+  display: inline;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: left;			
+    width: 200px;					
+    height: 100px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: lightgrey;	
+    border: 0px;		
+    border-radius: 4px;			
+    pointer-events: none;			
+}
