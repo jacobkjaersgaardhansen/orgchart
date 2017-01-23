@@ -48,6 +48,11 @@ var vis = d3.select("#block_container").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
   root.x0 = h / 2;
   root.y0 = 0;
 
