@@ -47,8 +47,8 @@ ul.select2-results {
 div.tooltip {	
     position: absolute;			
     text-align: left;			
-    width: 200px;					
-    height: 100px;					
+    width: 72px;					
+    height: 72px;					
     padding: 2px;				
     font: 12px sans-serif;		
     background: lightgrey;	
