@@ -4,145 +4,17 @@
 
 <title>Organizational chart</title>
 
-<style>
-
-.node {
-  cursor: pointer;
-}
-
-.node circle {
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-
-.node text {
-	  font: 11px sans-serif;
-}
-
-path.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
-
-.found {
-  fill: #ff4136;
-  stroke: #ff4136;
-}
-
-.search {
-  float: left;
-  font: 10px sans-serif;
-  width: 300px;
-}
-
-ul.select2-results {
- max-height: 100px;
-}
-
-.select2-container,
-.select2-drop,
-.select2-search,
-.select2-search input {
-  font: 10px sans-serif;
-}
-
-#block_container {
-  display: inline;
-}
-
-</style>
+<script src="include.js"></script>
 </head>
 
 <body>
-
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="hierarchy.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css"></link>
-<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
 
 <div id="block_container">
    <div id="searchName"></div>
 </div>
 
 <script>
-function select2DataCollectName(d) {
-    if (d.children)
-        d.children.forEach(select2DataCollectName);
-    else if (d._children)
-        d._children.forEach(select2DataCollectName);
-    select2Data.push(d.name + d.initials);
-}
 
-function searchTree(d) {
-    if (d.children)
-        d.children.forEach(searchTree);
-    else if (d._children)
-        d._children.forEach(searchTree);
-    var searchFieldValue = eval(searchField);
-    if (searchFieldValue && searchFieldValue.match(searchText)) {
-            // Walk parent chain
-            var ancestors = [];
-            var parent = d;
-            while (typeof(parent) !== "undefined") {
-                ancestors.push(parent);
-                parent.class = "found";
-                parent = parent.parent;
-            }
-    }
-}
-
-function clearAll(d) {
-    d.class = "";
-    if (d.children)
-        d.children.forEach(clearAll);
-    else if (d._children)
-        d._children.forEach(clearAll);
-}
-
-function collapse(d) {
-    if (d.children) {
-        d._children = d.children;
-        d._children.forEach(collapse);
-        d.children = null;
-    }
-}
-
-function collapseAllNotFound(d) {
-    if (d.children) {
-    	if (d.class !== "found") {
-        	d._children = d.children;
-        	d._children.forEach(collapseAllNotFound);
-        	d.children = null;
-	} else 
-        	d.children.forEach(collapseAllNotFound);
-    }
-}
-
-function expandAll(d) {
-    if (d._children) {
-        d.children = d._children;
-        d.children.forEach(expandAll);
-        d._children = null;
-    } else if (d.children)
-        d.children.forEach(expandAll);
-}
-
-// Toggle children
-function toggle(d) {
-  if (d.children) {
-    d._children = d.children;
-    d.children = null;
-  } else {
-    d.children = d._children;
-    d._children = null;
-  }
-  clearAll(root);
-  update(d);
-  $("#searchName").select2("val", "");
-}
 
 $("#searchName").on("select2-selecting", function(e) {
     clearAll(root);
@@ -176,6 +48,11 @@ var vis = d3.select("#block_container").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
+// Define the div for the tooltip
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
+
   root.x0 = h / 2;
   root.y0 = 0;
 
@@ -204,37 +81,13 @@ var vis = d3.select("#block_container").append("svg:svg")
         containerCssClass: "search"
   });
 
-  function collapse(d) {
-    if (d.children) {
-      d._children = d.children;
-      d._children.forEach(collapse);
-      d.children = null;
-    }
-  }
+
 
   root.children.forEach(collapse);
   update(root);
  
 d3.select(self.frameElement).style("height", "800px");
-  
-
-  function toggleAll(d) {
-    if (d.children) {
-      d.children.forEach(toggleAll);
-      toggle(d);
-    }
-  }
-  
- function collapseExpandAll(d) {
-	if (d.children) {
-		collapse(d);
-		update(d);
-	} else {
-		expandAll(d);
-		update(d);
-	}
-}
-	  
+ 
 
   // Initialize the display to show a few nodes.
   root.children.forEach(toggleAll);
@@ -281,7 +134,20 @@ function update(source) {
   nodeEnter.append("svg:circle")
       .attr("r", 1e-6)
 	  .style("fill", function(d) { return d._children ? d.status=="1" ? colorsFill[0] : d.status=="0" ? colorsFill[1] : colorsFill[2] : "#fff"; })
-	  .style("stroke", function(d) { return d.status=="1" ? colorsStroke[0] : d.status=="0" ? colorsStroke[1] : colorsStroke[2]; }); 
+	  .style("stroke", function(d) { return d.status=="1" ? colorsStroke[0] : d.status=="0" ? colorsStroke[1] : colorsStroke[2]; })
+	  .on("mouseover", function(d) {
+		div.transition()		
+           	   .duration(300)		
+           	   .style("opacity", 1);		
+        	div.html("<img src=" + picturesPath + d.initials + picturesExtension + " width=72 />")
+		   .style("left", (d3.event.pageX) + "px")		
+             	   .style("top", (d3.event.pageY-72) + "px");	
+		})
+	  .on("mouseout", function (d) {
+		div.transition()		
+             	   .duration(1000)		
+           	   .style("opacity", 0);
+		});
 
   nodeEnter.append("svg:text")
       .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
